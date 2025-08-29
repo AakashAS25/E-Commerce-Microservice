@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Start Minikube
+      shell: minikube start --driver=docker
+      register: minikube_start
+      changed_when: "'Done!' in minikube_start.stdout"
+
+    - name: Deploy product-service chart
+      shell: helm upgrade --install product-service /mnt/c/Users/aakas/Desktop/MyProjects/e_commerce_microservice/backend/product_service/product-service-chart
+
+    - name: Deploy order-service chart
+      shell: helm upgrade --install order-service /mnt/c/Users/aakas/Desktop/MyProjects/e_commerce_microservice/backend/order_service/order-service-chart
+
+    - name: Deploy payment-service chart
+      shell: helm upgrade --install payment-service /mnt/c/Users/aakas/Desktop/MyProjects/e_commerce_microservice/backend/payment_service/payment-service-chart
